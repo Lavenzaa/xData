@@ -6,6 +6,7 @@ import io
 # Load model and processor once [2b.ii) WhisperProcessor is used to pre-process the audio]
 processor = WhisperProcessor.from_pretrained("openai/whisper-tiny")
 model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-tiny")
+#Assume all inputs are in english to avoid confusing the model
 forced_decoder_ids = processor.get_decoder_prompt_ids(language="english", task="transcribe")
 
 

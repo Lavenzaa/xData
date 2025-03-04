@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, status, Query
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
 from app.models.transcription_model import Transcription
@@ -34,12 +34,14 @@ async def transcribe_endpoint(
                 ignored_files.append(file.filename)
                 continue  # Skip processing duplicate files
 
-            # Ensure file is within allowed size (e.g., 25MB max)
-            if file.size > 25 * 1024 * 1024:
-                raise HTTPException(status_code=413, detail=f"File {file.filename} is too large (Max: 25MB)")
 
             # Read file content
             audio_data = await file.read()
+            file_size = len(audio_data)
+
+            # Ensure file is within allowed size (25MB max)
+            if file_size > 25 * 1024 * 1024:
+                raise HTTPException(status_code=413, detail=f"File {file.filename} is too large (Max: 25MB)")
 
             # Transcribe the audio
             text = transcribe_audio(audio_data)
@@ -75,7 +77,7 @@ async def get_transcriptions(db: Session = Depends(get_db)):
         transcriptions = db.query(Transcription).all()
 
         if not transcriptions:
-            raise HTTPException(status_code=404, detail="No transcriptions found")
+            return []
 
         return transcriptions
 
@@ -86,7 +88,28 @@ async def get_transcriptions(db: Session = Depends(get_db)):
         )
 
 
-#TODO
-@router.get("/search")
-async def search_transcriptions():
-    return "Searching"
+# Searches for transcriptions based on a partial filename match.
+@router.get("/search", response_model=List[TranscriptionResponse], status_code=status.HTTP_200_OK)
+async def search_transcriptions(
+    filename: str = Query(..., min_length=1, description="Part of the filename to search for"),
+    db: Session = Depends(get_db)
+):
+    try:
+        # Ensure filename is a valid non-empty string before querying
+        if not filename.strip():
+            raise HTTPException(status_code=400, detail="Filename query cannot be empty")
+
+        results = db.query(Transcription).filter(Transcription.file_name.ilike(f"%{filename}%")).all()
+
+        if not results:
+            raise HTTPException(status_code=404, detail= "No file found")
+
+        return results
+
+    except HTTPException as http_err:
+        raise http_err  # Forward HTTP exceptions
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error searching transcriptions: {str(e)}"
+        )
