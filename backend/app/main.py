@@ -15,6 +15,8 @@ app = FastAPI()
 app.include_router(health_router, prefix="")
 app.include_router(transcribe_router, prefix="")
 
+
+#For logging endpoint calls
 logging.basicConfig(
     level=logging.INFO,  # Log level set to INFO
     format="%(asctime)s - %(levelname)s - %(message)s",  # Log format
