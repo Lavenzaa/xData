@@ -1,0 +1,4 @@
+.venv
+transcriptions.db
+*.pyc
+backend/Sample 1.mp3
