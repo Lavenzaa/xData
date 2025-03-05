@@ -4,26 +4,25 @@ I used vscode for my ide and bash for my terminal.
 
 ## Run Locally (Backend)
 
-Clone the project and go to the project directory
+How to Run the Backend with Docker
 
-cd into the backend folder
-
-Activate virtual environment
+1. Build the Docker Image
 
 ```bash
-  source .venv/Scripts/activate
+  docker build -t fastapi-backend .
 ```
 
-Install dependencies
+2. Run the Container
 
 ```bash
-  pip install -r requirements.txt
+  docker run -p 8000:8000 fastapi-backend
 ```
 
-Start the server
+3. Access the API
 
 ```bash
-  uvicorn app.main:app --reload
+  ## 3. Access the API
+  Open [http://localhost:8000/docs](http://localhost:8000/docs) to test the endpoints.
 ```
 
 ## Run Locally (Frontend)
@@ -45,7 +44,7 @@ Activate virtual environment
 Install dependendencies if you haven't (optional)
 
 ```bash
-  pip install -r requirements.txt
+  pip install pytest
 ```
 
 Run the tests
