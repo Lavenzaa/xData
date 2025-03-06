@@ -4,9 +4,9 @@ I used vscode for my ide and bash for my terminal.
 
 ## Run Locally (Backend)
 
-How to Run the Backend with Docker
+How to Run the Backend with Docker (Remember to turn on docker desktop)
 
-1. Build the Docker Image
+1. Build the Docker Image (Make sure to cd into the backend folder)
 
 ```bash
   docker build -t fastapi-backend .
@@ -35,16 +35,17 @@ First, make sure that another terminal is running the backend server currently.
 
 Open a new terminal and cd into the backend folder of the project
 
-Activate virtual environment
+Create and activate virtual environment
 
 ```bash
+  python -m venv .venv
   source .venv/Scripts/activate
 ```
 
 Install dependendencies if you haven't (optional)
 
 ```bash
-  pip install pytest
+  pip install -r requirements.txt
 ```
 
 Run the tests

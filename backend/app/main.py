@@ -1,3 +1,5 @@
+#Adjust as neeeded
+CONST_PORT = "http://localhost:5173"
 import logging
 from fastapi import FastAPI, Request
 from datetime import datetime
@@ -5,12 +7,22 @@ from starlette.responses import Response
 from app.api.routes.health import router as health_router
 from app.api.routes.transcribe import router as transcribe_router
 from app.db.database import init_db
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 # Initialize database on startup
 init_db()
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[CONST_PORT],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(health_router, prefix="")
 app.include_router(transcribe_router, prefix="")

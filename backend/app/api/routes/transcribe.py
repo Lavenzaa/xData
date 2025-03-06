@@ -64,7 +64,7 @@ async def transcribe_endpoint(
         except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error processing {file.filename}: {str(e)}"
+                detail=f"Error processing {file.filename}, invalid file type"
             )
 
     return {"transcribed":transcriptions, 
