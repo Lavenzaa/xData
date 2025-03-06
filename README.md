@@ -1,6 +1,6 @@
 # xData Technical Test Attempt
 
-I used vscode for my ide and bash for my terminal.
+I used vscode for my ide and bash for my terminal. All assumptions and considerations are listed in architecture.pdf to avoid cluttering the README.
 
 ## Run Locally (Backend)
 

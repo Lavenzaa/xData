@@ -1,17 +1,31 @@
 import React, { useState } from "react";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip, Snackbar, Alert, Slide } from "@mui/material";
 import { transcribeApis } from "../../services/transcribeApi";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Transcriptions = ({ setTableData }) => {
   const [loading, setLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const fetchAllTranscriptions = async () => {
+    const handleCloseSnackbar = ({ message }) => {
+      setSnackbarOpen(true);
+      setSnackbarMessage(message);
+      setTimeout(() => {
+        setSnackbarOpen(false);
+      }, 1500);
+    };
+
     setLoading(true);
     try {
       const result = await transcribeApis.getTranscriptions();
+      if (result.length == 0) {
+        handleCloseSnackbar({ message: "No transcripts in Database" });
+      }
       setTableData(result);
     } catch (error) {
-      console.error("Error fetching transcriptions:", error);
+      handleCloseSnackbar({ message: "Failed to fetch transcripts" });
     } finally {
       setLoading(false);
     }
@@ -19,14 +33,6 @@ const Transcriptions = ({ setTableData }) => {
 
   return (
     <div className="flex flex-col items-center">
-      {/* <Button
-        variant="contained"
-        color="primary"
-        onClick={fetchAllTranscriptions}
-        disabled={loading}
-      >
-        View All
-      </Button> */}
       <Tooltip title="View All Transcripts">
         <IconButton
           onClick={fetchAllTranscriptions}
@@ -37,6 +43,16 @@ const Transcriptions = ({ setTableData }) => {
           <VisibilityIcon />
         </IconButton>
       </Tooltip>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={1500}
+        slots={{ transition: Slide }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Snackbar, Slide, Alert } from "@mui/material";
+import { IconButton, Snackbar, Slide, Alert, Tooltip } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import { transcribeApis } from "../../services/transcribeApi";
@@ -80,21 +80,23 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center rounded shadow-lg relative">
-      <Button
-        component="label"
-        variant="contained"
-        startIcon={<CloudUploadIcon />}
-        disabled={loading}
-      >
-        Transcribe Audio
-        <VisuallyHiddenInput
-          type="file"
-          accept="audio/*"
-          onChange={handleFileChangeAndUpload}
-          multiple
-        />
-      </Button>
+    <div className="flex flex-row items-center justify-center relative">
+      <Tooltip title="Transcribe audio files">
+        <IconButton
+          color="secondary"
+          size="large"
+          loading={loading}
+          component="label"
+        >
+          <VisuallyHiddenInput
+            type="file"
+            accept="audio/*"
+            onChange={handleFileChangeAndUpload}
+            multiple
+          />
+          <CloudUploadIcon />
+        </IconButton>
+      </Tooltip>
       <Snackbar
         open={snackbarOpen}
         onClose={handleCloseSnackbar}
