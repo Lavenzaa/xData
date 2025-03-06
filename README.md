@@ -54,23 +54,33 @@ First, make sure that another terminal is running the backend server currently.
 
 Open a new terminal and cd into the backend folder of the project
 
-Create and activate virtual environment
+1. Build the Docker Image for testing (Remember to turn on docker desktop)
 
 ```bash
-  python -m venv .venv
-  source .venv/Scripts/activate
+  docker build -f Dockerfile.test -t fastapi-backend-tests .
 ```
 
-Install dependendencies if you haven't (optional)
+2. Run the Container
 
 ```bash
-  pip install -r requirements.txt
-```
-
-Run the tests
-
-```bash
-  pytest tests
+  docker run --rm fastapi-backend-tests
 ```
 
 Frontend:
+
+First, make sure that another terminal is running the frontend server currently.
+
+Open a new terminal and cd into the frontend folder of the project
+
+1. Build the Docker Image for testing (Remember to turn on docker desktop)
+
+```bash
+  docker build -f Dockerfile.test -t react-frontend-tests .
+```
+
+2. Run the Container
+
+```bash
+  docker run --rm react-frontend-tests
+
+```

@@ -1,0 +1,15 @@
+# Use the official Python image as the base (adjust version as needed)
+FROM python:3.9
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file and install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy the entire FastAPI app into the container
+COPY . .
+
+# Run tests using pytest
+CMD ["pytest", "--maxfail=1", "--disable-warnings", "-q"]
