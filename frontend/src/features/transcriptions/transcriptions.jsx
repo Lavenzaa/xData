@@ -1,45 +1,43 @@
-import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
+import React, { useState } from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import { transcribeApis } from "../../services/transcribeApi";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const Transcriptions = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    // TODO: Fetch transcriptions from your backend API
-    setData([
-      { id: 1, fileName: "audio1.mp3", transcription: "Hello world!" },
-      { id: 2, fileName: "audio2.mp3", transcription: "React is awesome!" },
-    ]);
-  }, []);
+const Transcriptions = ({ setTableData }) => {
+  const [loading, setLoading] = useState(false);
+  const fetchAllTranscriptions = async () => {
+    setLoading(true);
+    try {
+      const result = await transcribeApis.getTranscriptions();
+      setTableData(result);
+    } catch (error) {
+      console.error("Error fetching transcriptions:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="transcriptions table">
-        <TableHead>
-          <TableRow>
-            <TableCell>File Name</TableCell>
-            <TableCell>Transcription</TableCell>
-            <TableCell>Created At</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.fileName}</TableCell>
-              <TableCell>{row.transcription}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className="flex flex-col items-center">
+      {/* <Button
+        variant="contained"
+        color="primary"
+        onClick={fetchAllTranscriptions}
+        disabled={loading}
+      >
+        View All
+      </Button> */}
+      <Tooltip title="View All Transcripts">
+        <IconButton
+          onClick={fetchAllTranscriptions}
+          loading={loading}
+          color="secondary"
+          size="large"
+        >
+          <VisibilityIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 };
 

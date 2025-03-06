@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Snackbar, Slide, Alert } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
-import { transcribeApi } from "../../services/transcribeApi";
+import { transcribeApis } from "../../services/transcribeApi";
 
 const VisuallyHiddenInput = styled("input")({
   position: "absolute",
@@ -35,7 +35,7 @@ const Upload = () => {
 
     setLoading(true);
     try {
-      const result = await transcribeApi.uploadFiles(formData);
+      const result = await transcribeApis.postTranscribe(formData);
       const messages = [];
       if (result.transcribed && result.transcribed.length) {
         result.transcribed.forEach((file) =>
