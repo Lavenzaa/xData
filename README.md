@@ -21,11 +21,30 @@ How to Run the Backend with Docker (Remember to turn on docker desktop)
 3. Access the API
 
 ```bash
-  ## 3. Access the API
   Open [http://localhost:8000/docs](http://localhost:8000/docs) to test the endpoints.
 ```
 
 ## Run Locally (Frontend)
+
+How to Run the Frontend with Docker (Remember to turn on docker desktop)
+
+1. Build the Docker Image (Make sure to cd into the frontend folder)
+
+```bash
+docker build -t react-frontend .
+```
+
+2. Run the Container
+
+```bash
+docker run -p 80:80 react-frontend
+```
+
+3. Access the frontend
+
+```bash
+http://localhost
+```
 
 ## Running Tests
 

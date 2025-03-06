@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { IconButton, Tooltip, Snackbar, Alert, Slide } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { transcribeApis } from "../../services/transcribeApi";
+import { triggerSnackbar } from "../helper";
+import ErrorSnackBar from "../../components/errorSnackBar";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Transcriptions = ({ setTableData }) => {
@@ -8,24 +10,20 @@ const Transcriptions = ({ setTableData }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  const fetchAllTranscriptions = async () => {
-    const handleCloseSnackbar = ({ message }) => {
-      setSnackbarOpen(true);
-      setSnackbarMessage(message);
-      setTimeout(() => {
-        setSnackbarOpen(false);
-      }, 1500);
-    };
+  const handleCloseSnackbar = (message) => {
+    triggerSnackbar(setSnackbarOpen, setSnackbarMessage, message, 1500);
+  };
 
+  const fetchAllTranscriptions = async () => {
     setLoading(true);
     try {
       const result = await transcribeApis.getTranscriptions();
       if (result.length == 0) {
-        handleCloseSnackbar({ message: "No transcripts in Database" });
+        handleCloseSnackbar("Database is currently empty");
       }
       setTableData(result);
     } catch (error) {
-      handleCloseSnackbar({ message: "Failed to fetch transcripts" });
+      handleCloseSnackbar("Failed to fetch transcripts");
     } finally {
       setLoading(false);
     }
@@ -43,16 +41,10 @@ const Transcriptions = ({ setTableData }) => {
           <VisibilityIcon />
         </IconButton>
       </Tooltip>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={1500}
-        slots={{ transition: Slide }}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+      <ErrorSnackBar
+        snackbarOpen={snackbarOpen}
+        snackbarMessage={snackbarMessage}
+      />
     </div>
   );
 };

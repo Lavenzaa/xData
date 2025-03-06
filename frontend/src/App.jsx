@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Upload from "./features/upload/upload";
 import Transcriptions from "./features/transcriptions/transcriptions";
-import Search from "./features/Search/Search";
+import Search from "./features/search/search";
 import TranscriptionsTable from "./components/transcriptionsTable";
 
 function App() {

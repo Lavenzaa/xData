@@ -1,5 +1,5 @@
 #Adjust as neeeded
-CONST_PORT = "http://localhost:5173"
+CONST_PORT = "http://localhost"
 import logging
 from fastapi import FastAPI, Request
 from datetime import datetime

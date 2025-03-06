@@ -102,7 +102,7 @@ async def search_transcriptions(
         results = db.query(Transcription).filter(Transcription.file_name.ilike(f"%{filename}%")).all()
 
         if not results:
-            raise HTTPException(status_code=404, detail= "No file found")
+            return []
 
         return results
 
