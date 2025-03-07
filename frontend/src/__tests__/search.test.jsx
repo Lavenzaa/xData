@@ -23,7 +23,7 @@ describe("Search Component", () => {
     render(<Search setTableData={setTableData} />);
 
     // Find the TextField and simulate user typing "test" and pressing Enter
-    const input = screen.getByLabelText(/search by filename/i);
+    const input = screen.getByLabelText(/Search Filename/i);
     fireEvent.change(input, { target: { value: "test" } });
     fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
 

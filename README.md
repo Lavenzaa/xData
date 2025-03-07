@@ -4,24 +4,26 @@ I used vscode for my ide and bash for my terminal. All assumptions and considera
 
 ## Run the backend and frontend (Docker Compose)
 
+Clone the project using github desktop or git clone
+
 Ensure Docker Destop is open and cd into the **PROJECT** folder (xData)
 
-1. Run docker compose and wait until both containers are started (backend takes longer to start)
+1. Run docker compose and wait until both containers start (backend takes longer to start)
 
 ```bash
   docker-compose up --build
 ```
 
-2. Access the webpage
+2. To access the webpage
 
 ```bash
-  Open [http://localhost/](http://localhost/).
+  Open http://localhost:5173/.
 ```
 
 3. To access the endpoints directly
 
 ```bash
-  Open [http://localhost:8000/docs](http://localhost:8000/docs).
+  Open http://localhost:8000/docs.
 ```
 
 ## Running Tests

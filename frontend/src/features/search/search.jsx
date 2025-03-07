@@ -34,7 +34,7 @@ const Search = ({ setTableData }) => {
   return (
     <div className="flex flex-col items-center justify-center rounded ">
       <TextField
-        label="Search Filename (Enter↵)"
+        label="Search Filename [Enter↵]"
         variant="outlined"
         color="secondary"
         error={error}
