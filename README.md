@@ -60,7 +60,7 @@ Open a new terminal and cd into the backend folder of the project
   docker build -f Dockerfile.test -t fastapi-backend-tests .
 ```
 
-2. Run the Container
+2. Run the Container to run the tests
 
 ```bash
   docker run --rm fastapi-backend-tests
@@ -75,10 +75,10 @@ Open a new terminal and cd into the frontend folder of the project
 1. Build the Docker Image for testing (Remember to turn on docker desktop)
 
 ```bash
-  docker build -f Dockerfile.test -t react-frontend-tests .
+  docker build -f dockerfile.test -t react-frontend-tests .
 ```
 
-2. Run the Container
+2. Run the Container to run the tests
 
 ```bash
   docker run --rm react-frontend-tests
