@@ -17,13 +17,13 @@ Ensure Docker Destop is open and cd into the **PROJECT** folder (xData)
 2. To access the webpage
 
 ```bash
-  Open http://localhost:5173/.
+  Open http://localhost:5173/
 ```
 
 3. To access the endpoints directly
 
 ```bash
-  Open http://localhost:8000/docs.
+  Open http://localhost:8000/docs
 ```
 
 ## Running Tests
