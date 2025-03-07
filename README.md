@@ -2,57 +2,33 @@
 
 I used vscode for my ide and bash for my terminal. All assumptions and considerations are listed in architecture.pdf to avoid cluttering the README.
 
-## Run Locally (Backend)
+## Run the backend and frontend (Docker Compose)
 
-How to Run the Backend with Docker (Remember to turn on docker desktop)
+Ensure Docker Destop is open and cd into the **PROJECT** folder (xData)
 
-1. Build the Docker Image (Make sure to cd into the backend folder)
+1. Run docker compose and wait until both containers are started (backend takes longer to start)
 
 ```bash
-  docker build -t fastapi-backend .
+  docker-compose up --build
 ```
 
-2. Run the Container
+2. Access the webpage
 
 ```bash
-  docker run -p 8000:8000 fastapi-backend
+  Open [http://localhost/](http://localhost/).
 ```
 
-3. Access the API
+3. To access the endpoints directly
 
 ```bash
-  Open [http://localhost:8000/docs](http://localhost:8000/docs) to test the endpoints.
-```
-
-## Run Locally (Frontend)
-
-How to Run the Frontend with Docker (Remember to turn on docker desktop)
-
-1. Build the Docker Image (Make sure to cd into the frontend folder)
-
-```bash
-docker build -t react-frontend .
-```
-
-2. Run the Container
-
-```bash
-docker run -p 80:80 react-frontend
-```
-
-3. Access the frontend
-
-```bash
-http://localhost
+  Open [http://localhost:8000/docs](http://localhost:8000/docs).
 ```
 
 ## Running Tests
 
-Backend:
+**BACKEND**:
 
-First, make sure that another terminal is running the backend server currently.
-
-Open a new terminal and cd into the backend folder of the project
+Open a new terminal and cd into the **BACKEND** folder of the project
 
 1. Build the Docker Image for testing (Remember to turn on docker desktop)
 
@@ -66,11 +42,9 @@ Open a new terminal and cd into the backend folder of the project
   docker run --rm fastapi-backend-tests
 ```
 
-Frontend:
+**FRONTEND**:
 
-First, make sure that another terminal is running the frontend server currently.
-
-Open a new terminal and cd into the frontend folder of the project
+Open a new terminal and cd into the **FRONTEND** folder of the project
 
 1. Build the Docker Image for testing (Remember to turn on docker desktop)
 

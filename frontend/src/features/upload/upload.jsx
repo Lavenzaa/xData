@@ -81,7 +81,7 @@ const Upload = () => {
 
   return (
     <div className="flex flex-row items-center justify-center relative">
-      <Tooltip title="Transcribe audio files">
+      <Tooltip title="Transcribe audio files (single/batched)">
         <IconButton
           color="secondary"
           size="large"

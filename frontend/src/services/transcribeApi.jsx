@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8000"; // adjust as needed
+const API_BASE_URL = "http://localhost:8000";
 
 export const transcribeApis = {
   // For calling the post/transcribe endpoint

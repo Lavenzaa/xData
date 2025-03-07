@@ -9,6 +9,7 @@ const Search = ({ setTableData }) => {
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const handleCloseSnackbar = (message) => {
     triggerSnackbar(setSnackbarOpen, setSnackbarMessage, message, 1500);
@@ -33,17 +34,20 @@ const Search = ({ setTableData }) => {
   return (
     <div className="flex flex-col items-center justify-center rounded ">
       <TextField
-        label="Search by Filename"
+        label="Search Filename (Enter↵)"
         variant="outlined"
         color="secondary"
+        error={error}
         value={query}
         disabled={loading}
-        helperText="Enter↵"
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => {
           // Only proceed if query is not empty
           if (e.key === "Enter" && query.trim()) {
             handleSearch();
+            setError(false);
+          } else if (e.key == "Enter") {
+            setError(true);
           }
         }}
         fullWidth

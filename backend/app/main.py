@@ -1,5 +1,4 @@
-#Adjust as neeeded
-CONST_PORT = "http://localhost"
+import os
 import logging
 from fastapi import FastAPI, Request
 from datetime import datetime
@@ -9,7 +8,7 @@ from app.api.routes.transcribe import router as transcribe_router
 from app.db.database import init_db
 from fastapi.middleware.cors import CORSMiddleware
 
-
+CONST_PORT = os.getenv("CONST_PORT")
 
 # Initialize database on startup
 init_db()
